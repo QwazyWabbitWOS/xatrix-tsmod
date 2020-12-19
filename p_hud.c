@@ -161,10 +161,10 @@ DeathmatchScoreboardMessage
 void DeathmatchScoreboardMessage (edict_t *ent, edict_t *killer)
 {
 	char	entry[1024];
-	char	string[1400];
+	char	string[1400] = "";
 	int		stringlength;
 	int		i, j, k;
-	int		sorted[MAX_CLIENTS];
+	int		sorted[MAX_CLIENTS] = { 0 };
 	int		sortedscores[MAX_CLIENTS] = { 0 };
 	int		score, total;
 //	int		picnum;

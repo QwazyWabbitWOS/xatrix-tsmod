@@ -305,10 +305,13 @@ void ED_ParseField (char *key, char *value, edict_t *ent)
 				*(char **)(b+f->ofs) = ED_NewString (value);
 				break;
 			case F_VECTOR:
-				sscanf (value, "%f %f %f", &vec[0], &vec[1], &vec[2]);
-				((float *)(b+f->ofs))[0] = vec[0];
-				((float *)(b+f->ofs))[1] = vec[1];
-				((float *)(b+f->ofs))[2] = vec[2];
+				if (sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]) != 3) {
+					gi.dprintf("WARNING: Vector field incomplete in %s, map: %s, field: %s\n", __func__, level.mapname, f->name);
+					VectorClear(vec);
+				}
+				((float*)(b + f->ofs))[0] = vec[0];
+				((float*)(b + f->ofs))[1] = vec[1];
+				((float*)(b + f->ofs))[2] = vec[2];
 				break;
 			case F_INT:
 				*(int *)(b+f->ofs) = atoi(value);
@@ -508,6 +511,7 @@ entities = LoadEntFile(mapname, entities);
 			ent = g_edicts;
 		else
 			ent = G_Spawn ();
+		
 		entities = ED_ParseEdict (entities, ent);
 
 		// yet another map hack
