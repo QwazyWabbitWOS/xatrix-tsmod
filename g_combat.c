@@ -531,8 +531,8 @@ void UpdateChaseCam(edict_t *ent)
 
 	targ = ent->client->chase_target;
 
-	VectorCopy(targ->s.origin, ownerv);
-	VectorCopy(ent->s.origin, oldgoal);
+	_VectorCopy(targ->s.origin, ownerv);
+	_VectorCopy(ent->s.origin, oldgoal);
 
 	ownerv[2] += targ->viewheight;
 
