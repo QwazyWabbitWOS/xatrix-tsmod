@@ -314,13 +314,13 @@ int Q_memcmp (void *m1, void *m2, int count)
 
 void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees )
 {
-	float	m[3][3];
+	float	m[3][3] = { 0 };
 	float	im[3][3];
 	float	zrot[3][3];
 	float	tmpmat[3][3];
 	float	rot[3][3];
 	int	i;
-	vec3_t vr, vup, vf;
+	vec3_t vr, vup, vf = { 0 };
 
 	vf[0] = dir[0];
 	vf[1] = dir[1];
@@ -533,31 +533,31 @@ void R_ConcatTransforms (float in1[3][4], float in2[3][4], float out[3][4])
 //============================================================================
 
 
-float Q_fabs (float f)
-{
-#if 0
-	if (f >= 0)
-		return f;
-	return -f;
-#else
-	int tmp = * ( int * ) &f;
-	tmp &= 0x7FFFFFFF;
-	return * ( float * ) &tmp;
-#endif
-}
-
-#if defined _M_IX86 && !defined C_ONLY
-#pragma warning (disable:4035)
-__declspec( naked ) long Q_ftol( float f )
-{
-	static int tmp;
-	__asm fld dword ptr [esp+4]
-	__asm fistp tmp
-	__asm mov eax, tmp
-	__asm ret
-}
-#pragma warning (default:4035)
-#endif
+//float Q_fabs (float f)
+//{
+//#if 0
+//	if (f >= 0)
+//		return f;
+//	return -f;
+//#else
+//	int tmp = * ( int * ) &f;
+//	tmp &= 0x7FFFFFFF;
+//	return * ( float * ) &tmp;
+//#endif
+//}
+//
+//#if defined _M_IX86 && !defined C_ONLY
+//#pragma warning (disable:4035)
+//__declspec( naked ) long Q_ftol( float f )
+//{
+//	static int tmp;
+//	__asm fld dword ptr [esp+4]
+//	__asm fistp tmp
+//	__asm mov eax, tmp
+//	__asm ret
+//}
+//#pragma warning (default:4035)
+//#endif
 
 /*
 ===============
@@ -968,7 +968,7 @@ vec_t VectorNormalize (vec3_t v)
 	float	length, ilength;
 
 	length = v[0]*v[0] + v[1]*v[1] + v[2]*v[2];
-	length = sqrt (length);		// FIXME
+	length = sqrtf (length);
 
 	if (length)
 	{
@@ -987,7 +987,7 @@ vec_t VectorNormalize2 (vec3_t v, vec3_t out)
 	float	length, ilength;
 
 	length = v[0]*v[0] + v[1]*v[1] + v[2]*v[2];
-	length = sqrt (length);		// FIXME
+	length = sqrtf (length);
 
 	if (length)
 	{
@@ -1050,7 +1050,7 @@ vec_t VectorLength(vec3_t v)
 	length = 0;
 	for (i=0 ; i< 3 ; i++)
 		length += v[i]*v[i];
-	length = sqrt (length);		// FIXME
+	length = sqrtf (length);
 
 	return length;
 }

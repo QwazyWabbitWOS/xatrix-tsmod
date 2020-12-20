@@ -713,6 +713,9 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 	int			mask;
 	qboolean	water;
 
+	if (!self)
+		return;
+
 	VectorMA (start, 8192, aimdir, end);
 	VectorCopy (start, from);
 	ignore = self;
@@ -798,7 +801,7 @@ void bfg_explode (edict_t *self)
 			VectorMA (ent->s.origin, 0.5, v, v);
 			VectorSubtract (self->s.origin, v, v);
 			dist = VectorLength(v);
-			points = self->radius_dmg * (1.0 - sqrt(dist/self->dmg_radius));
+			points = self->radius_dmg * (1.0 - sqrtf(dist/self->dmg_radius));
 			if (ent == self->owner)
 				points = points * 0.5;
 
