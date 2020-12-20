@@ -687,7 +687,7 @@ qboolean FileExists(char *checkname, filetype_t ftype)
 
 //              Search in the game directory for external file.
 
-                sprintf(filename, "%s/%s/%s", basedir->string, gamedir->string, path);
+                Com_sprintf(filename, sizeof filename, "%s/%s/%s", basedir->string, gamedir->string, path);
                 if ((fstream = fopen(filename, "r")) != NULL)
                 {
                         fclose(fstream);
@@ -702,7 +702,7 @@ qboolean FileExists(char *checkname, filetype_t ftype)
 
 //      Search in the 'baseq2' directory for external file.
 
-        sprintf(filename, "%s/baseq2/%s", basedir->string, path);
+        Com_sprintf(filename, sizeof filename, "%s/baseq2/%s", basedir->string, path);
         if ((fstream = fopen(filename, "r")) != NULL)
         {
                 fclose(fstream);
