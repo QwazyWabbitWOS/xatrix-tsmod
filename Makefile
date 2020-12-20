@@ -76,7 +76,7 @@ all:
 	@echo ""
 	@echo " \"> make [V=1] baseq2_build_release or xatrix_build_release\"  to build binary release."
 	@echo " \"> make [V=1] baseq2_build_debug or xatrix_build_debug\"  to build binary with debug options."
-	@echo " \"> make clean\"          to clean (remove) all .o and .so files."
+	@echo " \"> make clean\"          to clean (remove) all .o files."
 	@echo " \"> make depend\"         for development only."
 	@echo ""
 
