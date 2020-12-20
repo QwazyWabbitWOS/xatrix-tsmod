@@ -246,10 +246,10 @@ ED_NewString
 char *ED_NewString (char *string)
 {
 	char	*newb, *new_p;
-	int		i,l;
+	int		i;
+	int		l;
 	
-	//l = strlen(string) + 1;
-	l = Q_strlenz(string) + 1;
+	l = (int) Q_strlenz(string) + 1;
 
 	newb = gi.TagMalloc (l, TAG_LEVEL);
 

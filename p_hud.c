@@ -162,8 +162,10 @@ void DeathmatchScoreboardMessage (edict_t *ent, edict_t *killer)
 {
 	char	entry[1024];
 	char	string[1400] = "";
-	int		stringlength;
-	int		i, j, k;
+	size_t	stringlength;
+	int		i;
+	int		j;
+	int		k;
 	int		sorted[MAX_CLIENTS] = { 0 };
 	int		sortedscores[MAX_CLIENTS] = { 0 };
 	int		score, total;
@@ -230,7 +232,7 @@ if (!level.intermissiontime && ent->client->ps.pmove.pm_type != PM_FREEZE) {  //
 			Com_sprintf (entry, sizeof(entry),
 				"xv %i yv %i picn %s ",x+32, y, tag);
 			//j = strlen(entry);
-			j = Q_strlenz(entry);
+			j = (int)Q_strlenz(entry);
 			if (stringlength + j > 1024)
 				break;
 			//strcpy (string + stringlength, entry);
@@ -245,7 +247,7 @@ if (!level.intermissiontime && ent->client->ps.pmove.pm_type != PM_FREEZE) {  //
 			x, y, sorted[i], cl->resp.score, cl->ping, (level.framenum - cl->resp.enterframe)/600);
 			
 		//j = strlen(entry);
-		j = Q_strlenz(entry);
+		j = (int)Q_strlenz(entry);
 		if (stringlength + j > 1024)
 			break;
 		//strcpy (string + stringlength, entry);
@@ -277,7 +279,7 @@ if (!level.intermissiontime && ent->client->ps.pmove.pm_type != PM_FREEZE) {  //
                                 "xv 85 yv 80 string \"Next Map: \" "
                                 "xv 165 yv 80 string2 \"%s\" ", level.nextmap);
 	}
-                j = Q_strlenz(entry);
+                j = (int)Q_strlenz(entry);
 
                 if (stringlength + j < 1024)
                         Q_strcpyz (string + stringlength, entry);
@@ -341,7 +343,7 @@ if (!level.intermissiontime && ent->client->ps.pmove.pm_type != PM_FREEZE) {  //
                 }
 	}
 
-                j = Q_strlenz(entry);
+                j = (int)Q_strlenz(entry);
 
                 if (stringlength + j > 1024)
                         break;

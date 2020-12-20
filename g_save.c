@@ -236,7 +236,7 @@ void InitGame (void)
 void WriteField1 (FILE *f, field_t *field, byte *base)
 {
 	void		*p;
-	int			len;
+	size_t		len;
 	int			index;
 
 	if (field->flags & FFL_SPAWNTEMP)
@@ -259,7 +259,7 @@ void WriteField1 (FILE *f, field_t *field, byte *base)
 			len = Q_strlenz(*(char **)p) + 1;
 		else
 			len = 0;
-		*(int *)p = len;
+		*(int *)p = (int)len;
 		break;
 	case F_EDICT:
 		if ( *(edict_t **)p == NULL)
@@ -309,7 +309,7 @@ void WriteField1 (FILE *f, field_t *field, byte *base)
 
 void WriteField2 (FILE *f, field_t *field, byte *base)
 {
-	int			len;
+	size_t		len;
 	void		*p;
 
 	if (field->flags & FFL_SPAWNTEMP)

@@ -369,14 +369,12 @@ void vectoangles (vec3_t value1, vec3_t angles)
 	angles[ROLL] = 0;
 }
 
-char *G_CopyString (char *in)
+char* G_CopyString(char* in)
 {
-	char	*out;
-	
-	//out = gi.TagMalloc (strlen(in)+1, TAG_LEVEL);
-	out = gi.TagMalloc (Q_strlenz(in)+1, TAG_LEVEL);
-	//strcpy (out, in);
-	Q_strcpyz (out, in);
+	char* out;
+
+	out = gi.TagMalloc((int)strlen(in) + 1, TAG_LEVEL);
+	strcpy(out, in);
 	return out;
 }
 
@@ -593,7 +591,7 @@ InPak (char *basedir, char *gamedir, char *filename)
   qboolean found = false;
   int k;
   int kk;
-  int num;
+  size_t num;
   int numitems;
 
 // Search paks in the game folder.

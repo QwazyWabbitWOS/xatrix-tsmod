@@ -210,7 +210,7 @@ size_t Q_strlenz(const char * s)
 
 char * Q_strstrz(const char * s1,const char * s2)
 {
-        int l1, l2;
+        size_t l1, l2;
 
         l2 = strlen(s2);
         if (!l2)
@@ -532,32 +532,6 @@ void R_ConcatTransforms (float in1[3][4], float in2[3][4], float out[3][4])
 
 //============================================================================
 
-
-//float Q_fabs (float f)
-//{
-//#if 0
-//	if (f >= 0)
-//		return f;
-//	return -f;
-//#else
-//	int tmp = * ( int * ) &f;
-//	tmp &= 0x7FFFFFFF;
-//	return * ( float * ) &tmp;
-//#endif
-//}
-//
-//#if defined _M_IX86 && !defined C_ONLY
-//#pragma warning (disable:4035)
-//__declspec( naked ) long Q_ftol( float f )
-//{
-//	static int tmp;
-//	__asm fld dword ptr [esp+4]
-//	__asm fistp tmp
-//	__asm mov eax, tmp
-//	__asm ret
-//}
-//#pragma warning (default:4035)
-//#endif
 
 /*
 ===============
@@ -1453,19 +1427,31 @@ void Com_PageInMemory (byte *buffer, int size)
 		paged_total += buffer[i];
 }
 
-static char	bigbuffer[0x10000];
+static char	bigbuffer[0x10000];  //QW// For Com_sprintf
 
-void Com_sprintf (char *dest, int size, char *fmt, ...)
+/**
+ Safer, uses large buffer
+ //QW// The big buffer allows us to safely dump
+ its contents to the log if the resulting format string
+ exceeds the size expected by the calling function.
+ This way we can see if this was a bug or possibly
+ malicious input.
+*/
+void Com_sprintf(char* dest, int size, char* fmt, ...)
 {
 	int		len;
 	va_list		argptr;
 
-	va_start (argptr,fmt);
-	len = vsprintf (bigbuffer,fmt,argptr);
-	va_end (argptr);
-	if (len >= size)
-		Com_Printf ("Com_sprintf: overflow of %i in %i\n", len, size);
-	strncpy (dest, bigbuffer, size-1);
+	va_start(argptr, fmt);
+	len = vsprintf(bigbuffer, fmt, argptr);
+	va_end(argptr);
+	if (len < size)
+		strncpy(dest, bigbuffer, (size_t)size - 1);
+	else
+	{
+		Com_Printf("ERROR! %s: destination buffer overflow of len %i, size %i\n"
+			"Input was: %s\n", __func__, len, size, bigbuffer);
+	}
 }
 
 /*
