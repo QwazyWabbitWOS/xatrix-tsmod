@@ -273,8 +273,6 @@ char *ED_NewString (char *string)
 }
 
 
-
-
 /*
 ===============
 ED_ParseField
