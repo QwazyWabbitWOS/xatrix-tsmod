@@ -13,14 +13,21 @@ ifdef V
   endif
 endif
 
-# i386 only!!
-ARCH=i386
-# use ICC?
-#CC=icc
-# GCC default
-CC=gcc
-BASE_CFLAGS=-m32 -Dstricmp=strcasecmp -I.
+# this nice line comes from the linux kernel makefile
+ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
 
+# On 64-bit OS use the command: setarch i386 make all
+# to obtain the 32-bit binary DLL on 64-bit Linux.
+
+CC = gcc -std=c99
+BASE_CFLAGS= -I.
+
+# This is for native build
+CFLAGS= -O2 -DARCH="$(ARCH)"
+# This is for 32-bit build on 64-bit host
+ifeq ($(ARCH),i386)
+CFLAGS =-m32 -O2 -fPIC -DARCH="$(ARCH)" -DSTDC_HEADERS -I/usr/include
+endif
 # This is my build_release flags for ICC with a PentuimPro CPU on the server build.
 # Refer here for further information:
 #    http://www.cbcb.duke.edu/computational/projects/public/icc.html
@@ -40,16 +47,16 @@ BASE_CFLAGS=-m32 -Dstricmp=strcasecmp -I.
 #CFLAGS_RELEASE=$(BASE_CFLAGS) -O2 -funroll-loops -ffast-math -march=athlon-xp -mmmx -m3dnow -msse
 
 # *** This default generic build line will work well on all ****
-CFLAGS_RELEASE=$(BASE_CFLAGS) -O2 -march=i386 -funroll-loops -ffast-math
+CFLAGS_RELEASE=$(BASE_CFLAGS) -O2 -funroll-loops -ffast-math
 
 # 'make build_debug' flags.
 CFLAGS_DEBUG=$(BASE_CFLAGS) -g
 
 # linker flags.
-ifeq ($(OSTYPE),FreeBSD)
+ifeq ($(shell uname),FreeBSD)
 LDFLAGS=-lm
 endif
-ifeq ($(OSTYPE),Linux)
+ifeq ($(shell uname),Linux)
 LDFLAGS=-lm -ldl
 endif
 
@@ -103,7 +110,7 @@ xatrix_build_release:
 
 # Clean object files and binary.
 clean:
-	-rm -f $(GAME_OBJS) game$(ARCH).$(SHLIBEXT);
+	-rm -f $(GAME_OBJS)
 
 .DEFAULT:
 	@echo ""
@@ -142,7 +149,7 @@ game$(ARCH).$(SHLIBEXT) : $(GAME_OBJS)
 	@$(CC) $(CFLAGS) $(SHLIBLDFLAGS) -o $@ $(GAME_OBJS) $(LDFLAGS)
 	@echo ""
 	@echo "Linking..."
-	@echo "	...game$(ARCH) ready."
+	@echo "	...game$(ARCH).so ready."
 	@echo "Build finished."
 	@echo ""
 endif
@@ -152,11 +159,12 @@ game$(ARCH).$(SHLIBEXT) : $(GAME_OBJS)
 	$(CC) $(CFLAGS) $(SHLIBLDFLAGS) -o $@ $(GAME_OBJS) $(LDFLAGS)
 endif
 
-	@echo "Possibly now use 'install -s gamei386.so /path/to/quake2/baseq2 or /quake2/xatrix/'" 
-	@echo "folder to install *if* not a debug_build ('install -s' strips symbols for a smaller binary),"
-	@echo "or just copy gamei386.so to baseq2/ or xatrix/ as required."
 	@echo ""
-	
+	@echo "Possibly now use 'install -s game"$(ARCH)".so /path/to/quake2/baseq2 or /quake2/xatrix/'"
+	@echo "folder to install *if* not a debug_build ('install -s' strips symbols for a smaller binary),"
+	@echo "or just copy game"$(ARCH)".so to baseq2/ or xatrix/ as required."
+	@echo ""
+
 
 #############################################################################
 # MISC
