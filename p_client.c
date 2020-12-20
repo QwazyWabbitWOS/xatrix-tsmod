@@ -893,7 +893,9 @@ edict_t *SelectRandomDeathmatchSpawnPoint (void)
 	}
 
 	if (!count)
+	{
 		return NULL;
+	}
 
 	if (count <= 2)
 	{
