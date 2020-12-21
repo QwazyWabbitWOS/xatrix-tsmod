@@ -2,6 +2,13 @@
 
 #pragma once 
 
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN	//non-MFC
+#include <windows.h>
+#endif
+
 #include "q_shared.h"
 
 // define GAME_INCLUDE so that game.h does not define the
