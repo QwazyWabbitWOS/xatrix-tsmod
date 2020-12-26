@@ -1,0 +1,20 @@
+/* Pre-build event in Visual Studio: GitWCRev.exe . GitRevisionInfo.tmpl GitRevisionInfo.h
+ * Creates GitRevisionInfo.h so we can track Git version in the binary.
+ *
+ * Original SVN method devised at the suggestion of Desmond (d3s) <admin@quake2lithium.com>
+ * This requires TortoiseGit installed on machines used to build the project.
+ * Get TortoiseGit at http://tortoiseGit.net/
+ */
+
+ /* Get the current Git revision number and make it a string we can
+  * access in the project. GitRevisionInfo.h will be made from this
+  * template, keep it un-versioned but included in the project.
+  */
+
+ #pragma once
+
+#ifdef _WIN32
+#define GIT_REV $WCLOGCOUNT$	// Equivalent to git rev-list --count HEAD
+#define GIT_VER "$WCREV=7$"	// Equivalent to git rev-parse --short HEAD
+#define COPYRIGHT "Copyright $WCNOW=%Y$ QwazyWabbit"
+#endif

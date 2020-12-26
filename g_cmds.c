@@ -1090,6 +1090,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f (ent);
 	else if (Q_stricmp (cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
+	else if (Q_stricmp(cmd, "gameversion") == 0)
+		gi.cprintf(ent, PRINT_HIGH, "Gameversion is %s %s rev %u\n", GAMEVERSION, GIT_VER, GIT_REV);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

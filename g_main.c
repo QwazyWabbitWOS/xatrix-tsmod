@@ -28,6 +28,7 @@ cvar_t	*maxspectators;
 cvar_t	*maxentities;
 cvar_t	*g_select_empty;
 cvar_t	*dedicated;
+cvar_t	*modversion;	//QW// Added for git tracking
 
 cvar_t	*filterban;
 

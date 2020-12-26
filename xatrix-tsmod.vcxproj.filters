@@ -72,6 +72,9 @@
     <ClCompile Include="q_shared.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GitRevisionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="q_shared.h">
@@ -93,6 +96,7 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="server.cfg" />
+    <None Include="GitRevisionInfo.tmpl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />

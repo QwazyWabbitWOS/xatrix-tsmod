@@ -299,3 +299,11 @@ Thanks to Musashi of AwakeningII for the random map change code.
 Thanks to Reiner (aka Fatty) for the bug report (via server logs :-) )  re fact2 crash.
 nick@linicks (aka Lethe & Bill Stokes)
 </pre>
+
+QwazyWabbit 12/26/2020
+Revised for Visual Studio 2019 and now depends on TortoiseGit.
+Get TortoiseGit at http://tortoiseGit.net/
+Added Git revision template for automatic versioning.
+Added gameversion command.
+Added game.rc for Windows.
+Modified the Makefile for building x86_64 or i386 modes.

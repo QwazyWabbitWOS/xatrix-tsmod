@@ -17,6 +17,24 @@
 #define	GAME_INCLUDE
 #include "game.h"
 
+#ifdef _WIN32
+#include "GitRevisionInfo.h" //QW// Added for git tracking.
+#endif
+
+//QW// cover case where we're not doing Windows.
+#ifndef GIT_REV
+#define GIT_REV 0
+#endif
+
+#ifndef GIT_VER
+#define GIT_VER "0000000"
+#endif
+
+#ifndef COPYRIGHT
+#define COPYRIGHT "Copyright 2005 nick@linicks (aka Lethe & Bill Stokes)"
+#endif // !COPYRIGHT
+
+
 // the "gameversion" client command will print this plus compile date
 // Nick - 14/09/2005 - define if baseq2 or Xatrix build
 #ifndef XATRIX
@@ -24,7 +42,6 @@
 #else
 #define GAMEVERSION     "xatrix"
 #endif
-
 
 
 // G:\quake2\baseq2\models/player_x/frames
@@ -758,6 +775,7 @@ extern	cvar_t	*password;
 extern	cvar_t	*spectator_password;
 extern	cvar_t	*g_select_empty;
 extern	cvar_t	*dedicated;
+extern	cvar_t	*modversion; //QW// Added for git tracking
 
 extern	cvar_t	*filterban;
 

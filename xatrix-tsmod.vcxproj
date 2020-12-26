@@ -97,6 +97,10 @@
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) c:\quake2\xatrix\gamex86.dll</Command>
       <Message>Copying $(OutDir)$(TargetName)$(TargetExt) to c:\quake2\xatrix\gamex86.dll</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>GitWCRev.exe . GitRevisionInfo.tmpl GitRevisionInfo.h</Command>
+      <Message>Get current Git revision of the project.</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -123,6 +127,10 @@
     <PostBuildEvent>
       <Message>Copying $(OutDir)$(TargetName)$(TargetExt) to c:\quake2\xatrix\gamex86.dll</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>GitWCRev.exe . GitRevisionInfo.tmpl GitRevisionInfo.h</Command>
+      <Message>Get current Git revision of the project.</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -137,6 +145,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
     </Link>
+    <PreBuildEvent>
+      <Command>GitWCRev.exe . GitRevisionInfo.tmpl GitRevisionInfo.h</Command>
+      <Message>Get current Git revision of the project.</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -155,8 +167,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
     </Link>
+    <PreBuildEvent>
+      <Command>GitWCRev.exe . GitRevisionInfo.tmpl GitRevisionInfo.h</Command>
+      <Message>Get current Git revision of the project.</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GitRevisionInfo.h" />
     <ClCompile Include="g_cmds.c" />
     <ClCompile Include="g_combat.c" />
     <ClCompile Include="g_ent.c" />
@@ -185,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="game.def" />
+    <None Include="GitRevisionInfo.tmpl" />
     <None Include="Makefile" />
     <None Include="server.cfg" />
   </ItemGroup>

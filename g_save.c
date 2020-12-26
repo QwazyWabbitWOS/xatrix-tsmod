@@ -132,6 +132,7 @@ is loaded.
 void InitGame (void)
 {
 	gi.dprintf ("==== InitGame "GAMEVERSION" ====\n");
+	gi.dprintf ("==== Git "GIT_VER" Rev %d ====\n", GIT_REV);
 
 	gun_x = gi.cvar ("gun_x", "0", 0);
 	gun_y = gi.cvar ("gun_y", "0", 0);
@@ -150,6 +151,8 @@ void InitGame (void)
 	sv_cheats = gi.cvar ("cheats", "0", CVAR_SERVERINFO|CVAR_LATCH);
 	gi.cvar ("gamename", GAMEVERSION , CVAR_SERVERINFO | CVAR_LATCH);
 	gi.cvar ("gamedate", __DATE__ , CVAR_SERVERINFO | CVAR_LATCH);
+	
+	modversion = gi.cvar("modversion", "Git-"GIT_VER, CVAR_SERVERINFO | CVAR_NOSET);
 
 	maxclients = gi.cvar ("maxclients", "4", CVAR_SERVERINFO | CVAR_LATCH);
 	maxspectators = gi.cvar ("maxspectators", "4", CVAR_SERVERINFO);
