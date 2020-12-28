@@ -132,7 +132,7 @@ is loaded.
 void InitGame (void)
 {
 	gi.dprintf ("==== InitGame "GAMEVERSION" ====\n");
-	gi.dprintf ("==== Git "GIT_VER" Rev %d ====\n", GIT_REV);
+	gi.dprintf ("==== Git "GIT_VER" ====\n");
 
 	gun_x = gi.cvar ("gun_x", "0", 0);
 	gun_y = gi.cvar ("gun_y", "0", 0);
