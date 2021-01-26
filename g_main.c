@@ -90,7 +90,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo);
 void ClientDisconnect (edict_t *ent);
 void ClientBegin (edict_t *ent);
 void ClientCommand (edict_t *ent);
-void RunEntity (edict_t *ent);
+void G_RunEntity (edict_t *ent);
 void WriteGame (char *filename, qboolean autosave);
 void ReadGame (char *filename);
 void WriteLevel (char *filename);
@@ -461,7 +461,7 @@ char* FindRandomMap(FILE* iostream)
 		else    // no different maps, so replay the current one
 		{
 			gi.dprintf("** Map list has no different maps\n");
-			sprintf(bspname, level.mapname);
+			sprintf(bspname, "%s", level.mapname);
 		}
 	}
 	else

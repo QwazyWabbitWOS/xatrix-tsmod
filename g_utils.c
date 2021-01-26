@@ -623,7 +623,7 @@ InPak (char *basedir, char *gamedir, char *filename)
                   fseek (f, pakheader.dstart, SEEK_SET);
                   for (kk = 0; (kk < numitems) && !found; kk++)
                    {
-                      int n = fread (&pakitem, 1, sizeof (pak_item_t), f);
+                      size_t n = fread (&pakitem, 1, sizeof (pak_item_t), f);
                       if (n && !Q_stricmp (pakitem.name, filename))
                         found = true;
                     }
